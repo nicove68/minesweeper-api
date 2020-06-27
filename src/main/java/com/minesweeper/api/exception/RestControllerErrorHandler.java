@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -41,9 +42,20 @@ public class RestControllerErrorHandler {
   }
 
   @ExceptionHandler(HttpMessageNotReadableException.class)
-  public ResponseEntity<RestResponse> handleInvalidFormatException(HttpServletRequest req, RestException ex) {
+  public ResponseEntity<RestResponse> handleInvalidFormatException(HttpServletRequest req, HttpMessageNotReadableException ex) {
     logger.error(ERROR_EXECUTING, req.getRequestURI(), ex);
 
-    return new ResponseEntity<>(ex.getResponse(), BAD_REQUEST);
+    RestResponse error = new RestResponse(BAD_REQUEST, ex.getMessage());
+
+    return new ResponseEntity<>(error, BAD_REQUEST);
+  }
+
+  @ExceptionHandler(MethodArgumentNotValidException.class)
+  public ResponseEntity<RestResponse> handleMethodArgumentNotValidException(HttpServletRequest req, MethodArgumentNotValidException ex) {
+    logger.error(ERROR_EXECUTING, req.getRequestURI(), ex);
+
+    RestResponse error = new RestResponse(BAD_REQUEST, ex.getMessage());
+
+    return new ResponseEntity<>(error, BAD_REQUEST);
   }
 }
