@@ -38,7 +38,7 @@ public class BoardController {
   }
 
   @PutMapping("/{boardId}/reveal")
-  public Board findBoard(
+  public Board reveal(
       @PathVariable String boardId,
       @RequestParam(value = "tile_row") int tileRow,
       @RequestParam(value = "tile_col") int tileCol) {
