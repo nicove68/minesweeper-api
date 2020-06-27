@@ -1,9 +1,12 @@
 package com.minesweeper.api.service;
 
+import static com.minesweeper.api.model.BoardStatus.LOST;
 import static com.minesweeper.api.model.BoardStatus.PLAYING;
+import static com.minesweeper.api.model.BoardStatus.WON;
 
 import com.minesweeper.api.controller.request.BoardRequest;
 import com.minesweeper.api.exception.rest.NotFoundException;
+import com.minesweeper.api.model.BoardStatus;
 import com.minesweeper.api.model.BoardTile;
 import com.minesweeper.api.model.entity.Board;
 import com.minesweeper.api.repository.BoardRepository;
@@ -126,6 +129,86 @@ public class BoardService {
       tile.get().setMine(true);
       i++;
     }
+  }
+
+  public Board reveal(String boardId, int tileRow, int tileCol) {
+    Board board = findOne(boardId);
+
+    if (isBoardFinished(board)) return board;
+
+    if (isMine(tileRow, tileCol, board)) {
+      logger.info("Ups! reveal a mine! You LOST the board with id {}", boardId);
+      finishBoard(board, LOST);
+      revealAllMines(board);
+      return boardRepository.save(board);
+    }
+
+    revealTilesRecursively(tileRow, tileCol, board);
+
+    if (isSafeRevealedBoard(board)) {
+      logger.info("Yey! Congrats! You WON the board with id {}", boardId);
+      finishBoard(board, WON);
+    }
+
+    return boardRepository.save(board);
+  }
+
+  private void revealTilesRecursively(int tileRow, int tileCol, Board board) {
+    Optional<BoardTile> tile = board.getTiles().stream()
+        .filter(t -> t.getRow() == tileRow)
+        .filter(t -> t.getCol() == tileCol)
+        .findFirst();
+
+    if (!tile.isPresent()) return;
+    if (tile.get().isRevealed()) return;
+
+    tile.get().setRevealed(true);
+    board.setUpdatedAt(LocalDateTime.now().toString());
+    logger.info("Tile row {} col {} was revealed", tileRow, tileCol);
+
+    if (tile.get().getNeighborMineCount() > 0) return;
+
+    revealTilesRecursively(tileRow - 1,tileCol - 1, board);
+    revealTilesRecursively(tileRow - 1,tileCol + 1, board);
+    revealTilesRecursively(tileRow + 1,tileCol - 1, board);
+    revealTilesRecursively(tileRow + 1,tileCol + 1, board);
+    revealTilesRecursively(tileRow - 1, tileCol, board);
+    revealTilesRecursively(tileRow + 1, tileCol, board);
+    revealTilesRecursively(tileRow, tileCol - 1, board);
+    revealTilesRecursively(tileRow, tileCol + 1, board);
+  }
+
+  private boolean isMine(int tileRow, int tileCol, Board board) {
+    Optional<BoardTile> tile = board.getTiles().stream()
+        .filter(t -> t.getRow() == tileRow)
+        .filter(t -> t.getCol() == tileCol)
+        .findFirst();
+
+    return tile.isPresent() && tile.get().isMine();
+  }
+
+  private boolean isSafeRevealedBoard(Board board) {
+    return board.getTiles().stream()
+        .filter(t -> !t.isMine())
+        .filter(t -> !t.isRevealed())
+        .count() == 0;
+  }
+
+  private void finishBoard(Board board, BoardStatus status) {
+    LocalDateTime date = LocalDateTime.now();
+    board.setStatus(status);
+    board.setUpdatedAt(date.toString());
+    board.setFinishedAt(date.toString());
+  }
+
+  private void revealAllMines(Board board) {
+    board.getTiles().stream()
+        .filter(BoardTile::isMine)
+        .forEach(t -> t.setRevealed(true));
+  }
+
+  private boolean isBoardFinished(Board board) {
+    return board.getStatus() == WON || board.getStatus() == LOST;
   }
 
   private int randomNumberLessThan(int max) {
