@@ -1,29 +1,31 @@
 package com.minesweeper.api.model;
 
 public class BoardTile {
-  private int id;
+  private int tileId;
   private int row;
   private int col;
   private boolean revealed;
-  private BoardTileDisplay display;
+  private boolean mine;
+  private int neighborMineCount;
 
   public BoardTile() {
   }
 
-  public BoardTile(int id, int row, int col, boolean revealed, BoardTileDisplay display) {
-    this.id = id;
+  public BoardTile(int tileId, int row, int col, boolean revealed, boolean mine, int neighborMineCount) {
+    this.tileId = tileId;
     this.row = row;
     this.col = col;
     this.revealed = revealed;
-    this.display = display;
+    this.mine = mine;
+    this.neighborMineCount = neighborMineCount;
   }
 
-  public int getId() {
-    return id;
+  public int getTileId() {
+    return tileId;
   }
 
-  public void setId(int id) {
-    this.id = id;
+  public void setTileId(int tileId) {
+    this.tileId = tileId;
   }
 
   public int getRow() {
@@ -50,11 +52,19 @@ public class BoardTile {
     this.revealed = revealed;
   }
 
-  public BoardTileDisplay getDisplay() {
-    return display;
+  public boolean isMine() {
+    return mine;
   }
 
-  public void setDisplay(BoardTileDisplay display) {
-    this.display = display;
+  public void setMine(boolean mine) {
+    this.mine = mine;
+  }
+
+  public int getNeighborMineCount() {
+    return neighborMineCount;
+  }
+
+  public void setNeighborMineCount(int neighborMineCount) {
+    this.neighborMineCount = neighborMineCount;
   }
 }
