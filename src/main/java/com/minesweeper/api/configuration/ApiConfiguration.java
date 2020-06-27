@@ -8,6 +8,9 @@ import static com.fasterxml.jackson.databind.SerializationFeature.FAIL_ON_EMPTY_
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Contact;
+import io.swagger.v3.oas.models.info.Info;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -45,5 +48,18 @@ public class ApiConfiguration implements WebMvcConfigurer {
         .setSerializationInclusion(NON_NULL)
         .configure(FAIL_ON_EMPTY_BEANS, false)
         .registerModule(new Jdk8Module());
+  }
+
+  @Bean
+  public OpenAPI customOpenAPI() {
+    return new OpenAPI()
+        .info(new Info()
+            .title("Minesweeper API")
+            .contact(new Contact()
+                .url("https://github.com/nicove68")
+                .name("Nico Valerga"))
+            .version("v1.0.0")
+            .description("Basic API Rest for minesweeper game")
+        );
   }
 }
