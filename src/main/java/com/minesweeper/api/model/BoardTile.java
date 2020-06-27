@@ -1,11 +1,15 @@
 package com.minesweeper.api.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class BoardTile {
+  @JsonProperty("tile_id")
   private int tileId;
   private int row;
   private int col;
   private boolean revealed;
   private boolean mine;
+  @JsonProperty("neighbor_mine_count")
   private int neighborMineCount;
 
   public BoardTile() {

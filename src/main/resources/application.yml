@@ -8,3 +8,10 @@ spring:
   data:
     mongodb:
       uri: ${MONGODB_URI}
+
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /documentation.html

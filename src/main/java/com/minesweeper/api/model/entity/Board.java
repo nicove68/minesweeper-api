@@ -1,5 +1,6 @@
 package com.minesweeper.api.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.minesweeper.api.model.BoardStatus;
 import com.minesweeper.api.model.BoardTile;
 import java.util.List;
@@ -16,13 +17,22 @@ public class Board {
   private int cols;
   private int mines;
   private BoardStatus status;
+
+  @JsonProperty("user_id")
   private String userId;
+
   @Field("created_at")
+  @JsonProperty("created_at")
   private String createdAt;
+
   @Field("updated_at")
+  @JsonProperty("updated_at")
   private String updatedAt;
+
   @Field("finished_at")
+  @JsonProperty("finished_at")
   private String finishedAt;
+
   private List<BoardTile> tiles;
 
   public Board() {

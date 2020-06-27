@@ -1,5 +1,6 @@
 package com.minesweeper.api.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.PersistenceConstructor;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -11,7 +12,9 @@ public class User {
   private String id;
   private String name;
   private int age;
+
   @Field("created_at")
+  @JsonProperty("created_at")
   private String createdAt;
 
   public User() {
