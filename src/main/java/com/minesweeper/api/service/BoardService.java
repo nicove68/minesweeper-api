@@ -49,7 +49,7 @@ public class BoardService {
     List<BoardTile> tiles = initializeEmptyTiles(rows, cols);
     putTheMines(mines, rows, cols, tiles);
 
-    Board board = new Board(rows, cols, mines, PLAYING, LocalDateTime.now().toString(), tiles);
+    Board board = new Board(rows, cols, mines, PLAYING, request.getUserId(), LocalDateTime.now().toString(), tiles);
 
     calculateNeighborMineCount(board);
 

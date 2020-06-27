@@ -10,13 +10,16 @@ public class BoardRequest {
   @Positive
   private int mines;
 
+  private String userId;
+
   public BoardRequest() {
   }
 
-  public BoardRequest(int rows, int cols, int mines) {
+  public BoardRequest(int rows, int cols, int mines, String userId) {
     this.rows = rows;
     this.cols = cols;
     this.mines = mines;
+    this.userId = userId;
   }
 
   public int getRows() {
@@ -41,5 +44,13 @@ public class BoardRequest {
 
   public void setMines(int mines) {
     this.mines = mines;
+  }
+
+  public String getUserId() {
+    return userId;
+  }
+
+  public void setUserId(String userId) {
+    this.userId = userId;
   }
 }

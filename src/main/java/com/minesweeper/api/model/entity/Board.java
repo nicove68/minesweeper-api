@@ -16,6 +16,7 @@ public class Board {
   private int cols;
   private int mines;
   private BoardStatus status;
+  private String userId;
   @Field("created_at")
   private String createdAt;
   @Field("updated_at")
@@ -28,11 +29,12 @@ public class Board {
   }
 
   @PersistenceConstructor
-  public Board(int rows, int cols, int mines, BoardStatus status, String createdAt, List<BoardTile> tiles) {
+  public Board(int rows, int cols, int mines, BoardStatus status, String userId, String createdAt, List<BoardTile> tiles) {
     this.rows = rows;
     this.cols = cols;
     this.mines = mines;
     this.status = status;
+    this.userId = userId;
     this.createdAt = createdAt;
     this.tiles = tiles;
   }
@@ -75,6 +77,14 @@ public class Board {
 
   public void setStatus(BoardStatus status) {
     this.status = status;
+  }
+
+  public String getUserId() {
+    return userId;
+  }
+
+  public void setUserId(String userId) {
+    this.userId = userId;
   }
 
   public String getCreatedAt() {
