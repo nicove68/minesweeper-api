@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Minesweeper game">
+    <meta name="author" content="Nico Valerga">
+    <title>Minesweeper by Nico Valerga &copy; 2020</title>
+
+    <link rel="shortcut icon" type="image/x-icon" th:href="@{/images/favicon.ico}" />
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+
+  </head>
+  <body class="text-center">
+
+  <form class="form-board">
+    <img class="mb-4 logo" th:src="@{/images/mine.png}" src="images/mine.png" alt="Minesweeper" width="72" height="70">
+    <h1 class="h2 mb-3 font-weight-normal">Minesweeper</h1>
+    <br>
+
+    <div id="create-board">
+
+      <h3 class="h4 mb-3 font-weight-normal">Play demo board</h3>
+      <p class="small font-weight-lighter">(8 rows, 8 cols, 4 mines. Easy!)</p>
+
+      <a th:href="@{/demo/create}" class="btn btn-lg btn-primary btn-block">Play Demo</a>
+
+    </div>
+
+    <p class="mt-5 mb-3 text-muted">by Nico Valerga &copy; 2020</p>
+  </form>
+
+</body>
+</html>
