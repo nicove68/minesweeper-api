@@ -1,13 +1,14 @@
 package com.minesweeper.api.controller.request;
 
+import javax.validation.constraints.Max;
 import javax.validation.constraints.Positive;
 
 public class BoardRequest {
-  @Positive
+  @Positive @Max(30)
   private int rows;
-  @Positive
+  @Positive @Max(30)
   private int cols;
-  @Positive
+  @Positive @Max(900)
   private int mines;
 
   private String userId;
