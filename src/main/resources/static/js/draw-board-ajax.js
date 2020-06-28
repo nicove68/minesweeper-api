@@ -59,16 +59,15 @@ function draw_board(boardResp) {
 
   var draw = "";
 
-  draw += '<h3 class="h4 mb-3 font-weight-normal">Status: ';
+  draw += '<h3 class="h4 mb-3 font-weight-normal">';
   switch(board.status) {
     case "WIN":
-      draw += '<span class="green">'; break;
+      draw += '<span class="green">YOU WIN!'; break;
     case "LOSE":
-      draw += '<span class="red">'; break;
+      draw += '<span class="red">YOU LOSE!'; break;
     default:
-      draw += '<span class="blue">'; break;
+      draw += '<span class="blue">CURRENTLY PLAYING'; break;
   }
-  draw += board.status;
   draw += '</span></h3>'
 
   draw += '<table class="table table-bordered">';
