@@ -11,7 +11,7 @@ $(document).ready(function(){
       'type': "GET",
       'global': false,
       'dataType': 'json',
-      'url': "http://localhost:5000/minesweeper-api/boards/" + boardId,
+      'url': "/minesweeper-api/boards/" + boardId,
       'success': function (data) {
         tmp = data;
       }
@@ -33,7 +33,7 @@ $(document).ready(function(){
         'type': "PUT",
         'global': false,
         'dataType': 'json',
-        'url': "http://localhost:5000/minesweeper-api/boards/" + boardId + "/reveal?tile_row=" + tileRow + "&tile_col=" + tileCol,
+        'url': "/minesweeper-api/boards/" + boardId + "/reveal?tile_row=" + tileRow + "&tile_col=" + tileCol,
         'success': function (data) {
           tmp = data;
         }
@@ -110,7 +110,7 @@ function draw_board(boardResp) {
 
   if (board.status != "PLAYING") {
     draw+= '<br>';
-    draw+= '<a href="http://localhost:5000/minesweeper-api/demo/" style="max-width: 200px; margin: 0 auto" class="btn btn-lg btn-primary btn-block">Play Again!</a>';
+    draw+= '<a href="/minesweeper-api/demo/" style="max-width: 200px; margin: 0 auto" class="btn btn-lg btn-primary btn-block">Play Again!</a>';
   }
 
 
