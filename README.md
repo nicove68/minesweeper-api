@@ -24,18 +24,20 @@ https://nicovalerga-minesweeper-api.herokuapp.com/minesweeper-api/demo/
 ## Notes
 
 I enjoyed developing minesweeper api, it was a big challenge and was very fun too!
-This are some of technical decisions that I have taken:
 
-- Save the data in two collections: Users and Boards. The Tiles information saves into each board. This decision allowed my to use two entities (users, boards) insteaf of three (users, boards, tiles), also for getting or updating the board I used one query because the tiles come in the response. For that reason I choosed mongo DB instead a relational database. 
+These are some of technical decisions that I have taken:
+
+- Save the data in two collections: Users and Boards. The Tiles information saves into each board. This decision allowed me to use two entities (users, boards) instead of three (users, boards, tiles). Also for getting or updating the board, I used one query because the tiles come in the response. For that reason, I choosed mongo DB instead of a relational database.
 
 - Boards can be created with/without an user, the user is optional. This functionality will allow future anonym users to play without sign-in. Also allows to develop new functionalities for registered users to save their boards for longer time than the anonyms users.
 
-- At first I developed a basic html with a table to visualize the tiles position, it helps me a lot. When I finished the api, it occurred me that this basic html could transform it in a demo game. For that reason I read about thymeleaft in SpringBoot applications and I put the basic frontend in my minesweeper application. It calls the api using jquery ajax. Its very rustic but it works!
+- At first, I developed a basic html with a table to visualize the tiles position, it helps me a lot. When I finished the api, it occurred me that this basic html could transform into a demo game. For that reason I read about Thymeleaf in SpringBoot applications and I put the basic frontend in my minesweeper application. It calls the api using jquery ajax. Its very rustic but it works!
 
 
 ## Run the application local
 
 First: start a mongo database local
+
 Second: set environment variable ${MONGODB_URI} or replace it in application.yml for: "mongodb://localhost:27017/minesweeper"
 
 ```
