@@ -61,9 +61,9 @@ function draw_board(boardResp) {
 
   draw += '<h3 class="h4 mb-3 font-weight-normal">Status: ';
   switch(board.status) {
-    case "WON":
+    case "WIN":
       draw += '<span class="green">'; break;
-    case "LOST":
+    case "LOSE":
       draw += '<span class="red">'; break;
     default:
       draw += '<span class="blue">'; break;

@@ -1,8 +1,8 @@
 package com.minesweeper.api.service;
 
-import static com.minesweeper.api.model.BoardStatus.LOST;
+import static com.minesweeper.api.model.BoardStatus.LOSE;
 import static com.minesweeper.api.model.BoardStatus.PLAYING;
-import static com.minesweeper.api.model.BoardStatus.WON;
+import static com.minesweeper.api.model.BoardStatus.WIN;
 
 import com.minesweeper.api.controller.request.BoardRequest;
 import com.minesweeper.api.exception.rest.NotFoundException;
@@ -137,8 +137,8 @@ public class BoardService {
     if (isBoardFinished(board)) return board;
 
     if (isMine(tileRow, tileCol, board)) {
-      logger.info("Ups! reveal a mine! You LOST the board with id {}", boardId);
-      finishBoard(board, LOST);
+      logger.info("Ups! reveal a mine! You LOSE the board with id {}", boardId);
+      finishBoard(board, LOSE);
       revealAllMines(board);
       return boardRepository.save(board);
     }
@@ -146,8 +146,8 @@ public class BoardService {
     revealTilesRecursively(tileRow, tileCol, board);
 
     if (isSafeRevealedBoard(board)) {
-      logger.info("Yey! Congrats! You WON the board with id {}", boardId);
-      finishBoard(board, WON);
+      logger.info("Yey! Congrats! You WIN the board with id {}", boardId);
+      finishBoard(board, WIN);
     }
 
     return boardRepository.save(board);
@@ -208,7 +208,7 @@ public class BoardService {
   }
 
   private boolean isBoardFinished(Board board) {
-    return board.getStatus() == WON || board.getStatus() == LOST;
+    return board.getStatus() == WIN || board.getStatus() == LOSE;
   }
 
   private int randomNumberLessThan(int max) {

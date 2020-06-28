@@ -48,10 +48,9 @@ body {
   margin: 0 auto;
 }
 
-
-
 table {
-  width: 400px!important;
+  max-width: 400px!important;
+  width: 100%!important;
   margin: 0 auto;
 }
 
@@ -79,10 +78,3 @@ table td.mine {
 .green {color: green;}
 .red {color: red;}
 .black {color: black;}
-
-
-
-
-
-
-

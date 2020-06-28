@@ -1,8 +1,8 @@
 package com.minesweeper.api.service;
 
-import static com.minesweeper.api.model.BoardStatus.LOST;
+import static com.minesweeper.api.model.BoardStatus.LOSE;
 import static com.minesweeper.api.model.BoardStatus.PLAYING;
-import static com.minesweeper.api.model.BoardStatus.WON;
+import static com.minesweeper.api.model.BoardStatus.WIN;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -83,7 +83,7 @@ public class BoardServiceTest {
   }
 
   @Test
-  public void reveal_whenTileIsAMine_returnBoardFinishedAsLost_ok() {
+  public void reveal_whenTileIsAMine_returnBoardFinishedAsLose_ok() {
     BoardTile boardTile = new BoardTile(1, 0, 0, false, true, 0);
     List<BoardTile> tiles = new ArrayList<>();
     tiles.add(boardTile);
@@ -95,11 +95,11 @@ public class BoardServiceTest {
 
     Board revealedBoard = boardService.reveal(boardId, 0, 0);
 
-    assertEquals(LOST, revealedBoard.getStatus());
+    assertEquals(LOSE, revealedBoard.getStatus());
   }
 
   @Test
-  public void reveal_whenTilesAreRevealedSafe_returnBoardFinishedAsWon_ok() {
+  public void reveal_whenTilesAreRevealedSafe_returnBoardFinishedAsWin_ok() {
     BoardTile boardTile1 = new BoardTile(1, 0, 0, false, true, 0);
     BoardTile boardTile2 = new BoardTile(2, 0, 1, false, false, 1);
     BoardTile boardTile3 = new BoardTile(3, 0, 2, false, false, 1);
@@ -118,6 +118,6 @@ public class BoardServiceTest {
 
     Board revealedBoard = boardService.findOne(boardId);
 
-    assertEquals(WON, revealedBoard.getStatus());
+    assertEquals(WIN, revealedBoard.getStatus());
   }
 }
